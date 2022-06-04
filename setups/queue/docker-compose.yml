@@ -22,3 +22,13 @@ services:
       - queue-network
     depends_on:
       - redis
+
+  heavy-process:
+    image: pcandido/load-test/heavy-process
+    build: ./heavy-process
+    networks:
+      - queue-network
+    depends_on:
+      - redis
+    deploy:
+      replicas: 5
