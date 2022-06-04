@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  heavy-api:
+    image: pcandido/load-test/heavy-api
+    build: ../components/heavy-api
+    ports:
+      - 8080:8080
+    deploy:
+      replicas: 15
+    
