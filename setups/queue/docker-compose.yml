@@ -30,5 +30,3 @@ services:
       - queue-network
     depends_on:
       - redis
-    deploy:
-      replicas: 5
