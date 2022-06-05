@@ -10,9 +10,15 @@ config:
     - duration: 30
       arrivalRate: 50
       name: 50/s
+    - duration: 30
+      arrivalRate: 200
+      name: 200/s
+    - duration: 30
+      arrivalRate: 500
+      name: 500/s
 
 scenarios:
-  - name: "Access"
+  - name: "test"
     flow:
       - get:
           url: "/"
