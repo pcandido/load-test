@@ -5,12 +5,15 @@ const app = express()
 
 app.get('/', (req, res) => {
 
+  const start = new Date().getTime()
   for (let i = 0; i < 1000000000; i++) {
     //simulate complex processing
   }
+  const end = new Date().getTime()
 
-  console.log(`calculated by ${os.hostname()}!`)
-  res.send(`calculated by ${os.hostname()}!`)
+  const message = `calculated by ${os.hostname()} in ${end - start}ms`
+  console.log(message)
+  res.send(message)
 })
 
 app.listen(8080, () => {
