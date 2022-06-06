@@ -14,7 +14,7 @@ services:
       - queue-network
 
   light-api:
-    image: pcandido/load-test/light-api
+    image: pcandido/load-test-light-api
     build: ./light-api
     ports:
       - 8080:8080
@@ -24,7 +24,7 @@ services:
       - redis
 
   heavy-process:
-    image: pcandido/load-test/heavy-process
+    image: pcandido/load-test-heavy-process
     build: ./heavy-process
     networks:
       - queue-network

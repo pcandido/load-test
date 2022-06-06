@@ -2,7 +2,7 @@ version: "3.9"
 
 services:
   heavy-api:
-    image: pcandido/load-test/heavy-api
+    image: pcandido/load-test-heavy-api
     build: ./heavy-api
     ports:
       - 8080:8080
