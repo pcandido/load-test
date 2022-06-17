@@ -1,0 +1,70 @@
+version: "3.9"
+
+networks:
+  backend-network:
+
+
+x-api-template:
+  &api-template
+  image: pcandido/load-test-light-api
+  networks:
+    - backend-network
+  depends_on:
+    - redis
+
+x-process-template:
+  &process-template
+  image: pcandido/load-test-heavy-process
+  networks:
+    - backend-network
+  depends_on:
+    - redis
+    - mongo
+
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - backend-network
+    depends_on:
+      - light-api-1
+
+  mongo:
+    image: mongo
+    networks:
+      - backend-network
+
+  mongo-express:
+    image: mongo-express
+    ports:
+      - 8081:8081
+    environment:
+      - ME_CONFIG_MONGODB_SERVER=mongo
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
+
+  redis:
+    image: redis
+    networks:
+      - backend-network
+
+  light-api-1:
+    <<: *api-template
+    build: ../../light-api
+
+  heavy-process-1:
+    <<: *process-template
+    build: ../../heavy-process
+
+  heavy-process-2:
+    <<: *process-template
+
+  heavy-process-3:
+    <<: *process-template
