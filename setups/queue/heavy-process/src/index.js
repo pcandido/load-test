@@ -16,14 +16,14 @@ async function getCollection() {
   return collection
 }
 
-queue.process((job, done) => {
+queue.process(async (job, done) => {
   const now = new Date().getTime()
-  const { start: requestStart } = job.data
+  const { requestTime } = job.data
 
   const coll = await getCollection()
   coll.insertOne({
     node: os.hostname(),
-    totalTime: now - requestStart
+    totalTime: now - requestTime
   })
 
   done()

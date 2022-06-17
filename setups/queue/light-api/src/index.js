@@ -6,7 +6,7 @@ const app = express()
 const queue = new Queue('calc-queue', 'redis://redis:6379')
 
 app.get('/', (req, res) => {
-  queue.add({ start })
+  queue.add({ requestTime: new Date().getTime() })
   res.send(`queued by ${os.hostname()}`)
 })
 
