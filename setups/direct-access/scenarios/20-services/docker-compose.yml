@@ -1,0 +1,111 @@
+version: "3.9"
+
+networks:
+  backend-network:
+
+
+x-api-template:
+  &api-template
+  image: pcandido/load-test-heavy-api
+  networks:
+    - backend-network
+  depends_on:
+    - mongo
+
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - backend-network
+    depends_on:
+      - heavy-api-1
+      - heavy-api-2
+      - heavy-api-3
+      - heavy-api-4
+      - heavy-api-5
+      - heavy-api-6
+      - heavy-api-7
+      - heavy-api-8
+      - heavy-api-9
+      - heavy-api-10
+      - heavy-api-11
+      - heavy-api-12
+      - heavy-api-13
+      - heavy-api-14
+      - heavy-api-15
+      - heavy-api-16
+      - heavy-api-17
+      - heavy-api-18
+      - heavy-api-19
+      - heavy-api-20
+
+  mongo:
+    image: mongo
+    networks:
+      - backend-network
+
+  heavy-api-1:
+    <<: *api-template
+    build: ../../heavy-api
+
+  heavy-api-2:
+    <<: *api-template
+
+  heavy-api-3:
+    <<: *api-template
+
+  heavy-api-4:
+    <<: *api-template
+
+  heavy-api-5:
+    <<: *api-template
+
+  heavy-api-6:
+    <<: *api-template
+
+  heavy-api-7:
+    <<: *api-template
+
+  heavy-api-8:
+    <<: *api-template
+
+  heavy-api-9:
+    <<: *api-template
+
+  heavy-api-10:
+    <<: *api-template
+
+  heavy-api-11:
+    <<: *api-template
+
+  heavy-api-12:
+    <<: *api-template
+
+  heavy-api-13:
+    <<: *api-template
+
+  heavy-api-14:
+    <<: *api-template
+
+  heavy-api-15:
+    <<: *api-template
+
+  heavy-api-16:
+    <<: *api-template
+
+  heavy-api-17:
+    <<: *api-template
+
+  heavy-api-18:
+    <<: *api-template
+
+  heavy-api-19:
+    <<: *api-template
+
+  heavy-api-20:
+    <<: *api-template
