@@ -1,19 +1,30 @@
+import { MongoClient } from 'mongodb'
 import express from 'express'
 import os from 'os'
 
 const app = express()
+let collection
 
-app.get('/', (req, res) => {
-
-  const start = new Date().getTime()
-  for (let i = 0; i < 1000000000; i++) {
-    //simulate complex processing
+async function getCollection() {
+  if (!collection) {
+    const client = new MongoClient('mongodb://mongo:27017')
+    await client.connect()
+    const db = client.db('api')
+    collection = db.collection('requests')
   }
-  const end = new Date().getTime()
 
-  const message = `calculated by ${os.hostname()} in ${end - start}ms`
-  console.log(message)
-  res.send(message)
+  return collection
+}
+
+app.get('/', async (req, res) => {
+  const coll = await getCollection()
+  coll.insertOne({
+    node: os.hostname(),
+  })
+
+  console.log(await coll.find({}).next())
+
+  res.send(`calculated by ${os.hostname()}`)
 })
 
 app.listen(8080, () => {
