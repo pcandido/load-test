@@ -18,11 +18,12 @@ async function getCollection() {
 
 queue.process(async (job, done) => {
   const now = new Date().getTime()
-  const { requestTime } = job.data
+  const { requestTime, apiNode } = job.data
 
   const coll = await getCollection()
   coll.insertOne({
-    node: os.hostname(),
+    apiNode,
+    processNode: os.hostname(),
     totalTime: now - requestTime
   })
 
