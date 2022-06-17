@@ -1,0 +1,67 @@
+version: "3.9"
+
+networks:
+  backend-network:
+
+
+services:
+
+  nginx:
+    image: nginx
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - backend-network
+    depends_on:
+      - heavy-api-1
+      - heavy-api-2
+      - heavy-api-3
+      - heavy-api-4
+      - heavy-api-5
+
+  mongo:
+    image: mongo
+    networks:
+      - backend-network
+
+  heavy-api-1:
+    image: pcandido/load-test-heavy-api
+    build: ../../heavy-api
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
+
+  heavy-api-2:
+    image: pcandido/load-test-heavy-api
+    build: ../../heavy-api
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
+
+  heavy-api-3:
+    image: pcandido/load-test-heavy-api
+    build: ../../heavy-api
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
+
+  heavy-api-4:
+    image: pcandido/load-test-heavy-api
+    build: ../../heavy-api
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
+
+  heavy-api-5:
+    image: pcandido/load-test-heavy-api
+    build: ../../heavy-api
+    networks:
+      - backend-network
+    depends_on:
+      - mongo
