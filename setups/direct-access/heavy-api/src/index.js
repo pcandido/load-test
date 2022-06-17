@@ -22,8 +22,6 @@ app.get('/', async (req, res) => {
     node: os.hostname(),
   })
 
-  console.log(await coll.find({}).next())
-
   res.send(`calculated by ${os.hostname()}`)
 })
 
