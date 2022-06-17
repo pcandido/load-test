@@ -4,6 +4,14 @@ networks:
   backend-network:
 
 
+x-api-template:
+  &api-template
+  image: pcandido/load-test-heavy-api
+  networks:
+    - backend-network
+  depends_on:
+    - mongo
+
 services:
 
   nginx:
@@ -27,41 +35,17 @@ services:
       - backend-network
 
   heavy-api-1:
-    image: pcandido/load-test-heavy-api
+    <<: *api-template
     build: ../../heavy-api
-    networks:
-      - backend-network
-    depends_on:
-      - mongo
 
   heavy-api-2:
-    image: pcandido/load-test-heavy-api
-    build: ../../heavy-api
-    networks:
-      - backend-network
-    depends_on:
-      - mongo
+    <<: *api-template
 
   heavy-api-3:
-    image: pcandido/load-test-heavy-api
-    build: ../../heavy-api
-    networks:
-      - backend-network
-    depends_on:
-      - mongo
+    <<: *api-template
 
   heavy-api-4:
-    image: pcandido/load-test-heavy-api
-    build: ../../heavy-api
-    networks:
-      - backend-network
-    depends_on:
-      - mongo
+    <<: *api-template
 
   heavy-api-5:
-    image: pcandido/load-test-heavy-api
-    build: ../../heavy-api
-    networks:
-      - backend-network
-    depends_on:
-      - mongo
+    <<: *api-template
