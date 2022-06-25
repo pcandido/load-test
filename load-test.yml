@@ -2,26 +2,26 @@ config:
   target: "http://localhost:8000"
   phases:
     - duration: 15
-      arrivalRate: 10
-      name: 10/s
-    - duration: 3
+      arrivalRate: 100
+      name: 100/s
+    - duration: 5
       arrivalRate: 5000
       name: 5000/s
     - duration: 15
-      arrivalRate: 10
-      name: 10/s
-    - duration: 3
+      arrivalRate: 100
+      name: 100/s
+    - duration: 5
       arrivalRate: 5000
       name: 5000/s
     - duration: 15
-      arrivalRate: 10
-      name: 10/s
-    - duration: 3
+      arrivalRate: 100
+      name: 100/s
+    - duration: 5
       arrivalRate: 5000
       name: 5000/s
     - duration: 15
-      arrivalRate: 10
-      name: 10/s
+      arrivalRate: 100
+      name: 100/s
 
 scenarios:
   - name: "test"
